@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+
+Route::get('/','LoginController@login');
+Route::post('/','LoginController@validations');
+
+Route::prefix('administrator')->group(function(){
+
+	Route::get('/','AdministratorController@main')->name('Panel');
+	Route::get('employees','AdministratorController@employees');
+
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
