@@ -14,7 +14,7 @@ class AdministratorController extends Controller
 
     public function employees(){
     	$query = new User();
-    	$employees = $query->employees()->simplePaginate(10);
-    	return view('administrator.partials.employees',compact('employees'));
+    	$employees = $query->employees()->simplePaginate(3);
+    	return view('administrator.employees',compact('employees'));
     }
 }

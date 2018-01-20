@@ -21,7 +21,7 @@ Route::post('/','LoginController@validations');
 Route::prefix('administrator')->group(function(){
 
 	Route::get('/','AdministratorController@main')->name('Panel');
-	Route::get('employees','AdministratorController@employees');
+	Route::get('employees','AdministratorController@employees')->name('employees');
 
 });
 

@@ -6,9 +6,9 @@
 @endsection
 
 @section('container')
-  <div id="body">
+<div id="body">
     <div class="col-xs-12 col-md-5">
-    	<button type="button" class="btn btn-success btn-block" onclick="">
+    	<button type="button" class="btn btn-success btn-block" onclick="location.href='{{ route('employees') }}'">
     		Empleados
       	</button>
     </div>    
@@ -19,5 +19,5 @@
       	</button>
     </div>
     <br><br><br><br>
-  </div>
+</div>
 @endsection
