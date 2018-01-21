@@ -29,6 +29,8 @@
 	<!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet"> -->
 	
+	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/myStyle.css') }}">
+
 	<!-- Animate.css 
 	<link rel="stylesheet" href="css/animate.css"> -->
 	<link href="{{ asset('plugins/bootstrap/css/animate.css') }}" rel="stylesheet">
@@ -46,11 +48,10 @@
 	<link href="{{ asset('plugins/bootstrap/css/magnific-popup.css') }}" rel="stylesheet">
 
 	<!--<link rel="stylesheet" href="css/style.css">-->
+	<!-- <link href="{{ asset('plugins/bootstrap/css/myStyle.css') }}" rel="stylesheet"> -->
 	<link href="{{ asset('plugins/bootstrap/css/style.css') }}" rel="stylesheet">
 
 	<link href="{{ asset('plugins/bootstrap/css/search.css') }}" rel="stylesheet">
-
-	<link href="{{ asset('plugins/bootstrap/css/myStyle.css') }}" rel="stylesheet">
 
 	<!-- Modernizr JS 
 	<script src="js/modernizr-2.6.2.min.js"></script>-->
@@ -59,6 +60,7 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	@yield('linkHead')
 	</head>
 	<body>
 
