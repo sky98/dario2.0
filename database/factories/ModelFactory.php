@@ -59,7 +59,7 @@ $factory->define(movements::class, function(Generator $faker){
         'value' =>$faker->numberBetween($min = 10000, $max = 100000),        
         'percentage' =>$faker->numberBetween($min = 0, $max = 100),
         'user_id' => 1,
-        'customer_id' => 2,
+        'customer_id' => $faker->numberBetween($min = 1, $max = 9),
         /*'customer_id' => $faker->numberBetween($min = 1, $max = 50),*/
     ]; 
 });

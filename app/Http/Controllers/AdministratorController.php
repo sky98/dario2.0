@@ -37,8 +37,21 @@ class AdministratorController extends Controller
     }
 
     public function employeeMovements($id){
+        $employeeMovements = [];
     	$movements = movements::distinct()->select('created_at')->where('user_id',$id)->groupby('created_at')->get();
-    	dd($movements);
+        foreach ($movements as $movement) {
+            $array[] = $movement->created_at->format('Y-m-d');
+        }
+        $days = array_unique($array);
+        foreach ($days as $day) {
+            $raise = movements::whereDate('created_at',$day)->where('user_id',$id)->where('type',1)->sum('value');
+            $pay = movements::whereDate('created_at',$day)->where('user_id',$id)->where('type',0)->sum('value');
+            dd($pay);
+            //array_add($employeeMovements,['day' => $day,'received' => $raise,'loaned' => $pay]);
+        }
+        //dd($employeeMovements);
+        //dd($movements[1]->created_at->format('Y-m-d'));   
+        //dd(movements::getCreated_at($movements->get('1')));
     	//return view('administrator.employeeMovements',compact('movements'));
     }
 }
