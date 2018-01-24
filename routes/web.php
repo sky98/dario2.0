@@ -24,7 +24,8 @@ Route::prefix('administrator')->group(function(){
 	Route::get('employees','AdministratorController@employees')->name('employees');
 	Route::get('employeeInformation/{id}','AdministratorController@employeeInformation')->name('employee Information');
 	Route::get('changeState/{id}/{state}','AdministratorController@changeState');
-	Route::get('employeeMovements/{id}','AdministratorController@employeeMovements');
+	Route::get('employeeMovements/{id}','AdministratorController@employeeMovements')->name('employeeMovements');
+	Route::get('employeeFees/{id}/{day}/{type}','AdministratorController@employeeFees');
 });
 
 Auth::routes();

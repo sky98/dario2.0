@@ -1,5 +1,5 @@
 @extends('layouts.administrator')
-@section('title','Employee')
+@section('title','Employee Information')
 
 @section('linkHead')
 <style>
@@ -84,7 +84,7 @@
 	    <label for="movements">movimientos : </label>
         <br>
         <div class="text-center">
-        	<a href="#"><i class="glyphicon glyphicon-zoom-in"></i></a>	
+        	<a href="{{ route('employeeMovements',$employee->id) }}"><i class="glyphicon glyphicon-zoom-in"></i></a>	
         </div>        
     </div>
 	<div class="form-group">
