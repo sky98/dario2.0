@@ -58,7 +58,12 @@ class AdministratorController extends Controller
     }
 
     public function employeeFees($id,$day,$type){
-    	$movements = movements::whereDate('created_at',$day)->where('user_id',$id)->where('type',$type)->get();
+    	$movements = movements::whereDate('movements.created_at',$day)
+                                ->where('movements.user_id',$id)
+                                ->where('movements.type',$type)
+                                ->join('customers','movements.customer_id','=','customers.id')
+                                ->select('customers.name','movements.*')
+                                ->get();
     	if($type == 1){
     		return view('administrator.partials.employeeCollect',compact('movements'));
     	}

@@ -22,6 +22,7 @@ Route::prefix('administrator')->group(function(){
 
 	Route::get('/','AdministratorController@main')->name('Panel');
 	Route::get('employees','AdministratorController@employees')->name('employees');
+	Route::get('customers','AdministratorController@customers')->name('customers');
 	Route::get('employeeInformation/{id}','AdministratorController@employeeInformation')->name('employee Information');
 	Route::get('changeState/{id}/{state}','AdministratorController@changeState');
 	Route::get('employeeMovements/{id}','AdministratorController@employeeMovements')->name('employeeMovements');
