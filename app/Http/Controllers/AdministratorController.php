@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\models\movements;
+use App\models\customers;
+use App\models\debts;
 
 class AdministratorController extends Controller
 {
@@ -70,5 +72,17 @@ class AdministratorController extends Controller
     	else{
     		return view('administrator.partials.employeeLend',compact('movements'));
     	}    	
+    }
+
+    public function customers(){
+        $customers = customers::orderBy('name','ASC')->simplePaginate(5);
+        return view('administrator.customers',compact('customers'));
+    }
+
+    public function customerDetails($id){
+        $customer = customers::find($id);
+        $debts = debts::where('customer_id',$id)->get();
+        $movements = movements::where('customer_id',$id)->get();
+        return view('administrator.customerDetails',compact('customer','debts','movements'));
     }
 }
