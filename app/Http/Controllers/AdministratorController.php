@@ -133,22 +133,38 @@ class AdministratorController extends Controller
 
     public function add(Request $request){
         if($request->input('role') == 'Cliente'){
-            $customer = new customers();
-            $data = $request->all();
-            $customer->create($data);
+            if (customers::where('nit',$request->input('nit'))->get()->first() == null) {
+                $customer = new customers();
+                $data = $request->all();
+                $customer->create($data);
+                return redirect()->back()->with('alert','Usuario Creado con Exito');
+            }
+            else{
+              return redirect()->back()->with('alert','Numero de Identificacion no valido cliente');  
+            }
         }
         else{
-            $password = bcrypt(substr($request->input('nit'),0,5).ucwords(substr($request->input('name'),0,1)));
-            $user = User::create([
-                'nit' => $request->input('nit'),
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'state' => 1,
-                'role' => 'e',
-                'password' => $password,
-                'token' => $request->input('token'),
-            ]);
+            if(User::where('nit',$request->input('nit'))->get()->first() == null){
+                if(User::where('email',$request->input('email'))->get()->first() == null){
+                    $password = bcrypt(substr($request->input('nit'),0,5).ucwords(substr($request->input('name'),0,1)));
+                    $user = User::create([
+                        'nit' => $request->input('nit'),
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'state' => 1,
+                        'role' => 'e',
+                        'password' => $password,
+                        'token' => $request->input('token'),
+                    ]);
+                    return redirect()->back()->with('alert','Usuario Creado con Exito');
+                } 
+                else{
+                    return redirect()->back()->with('alert','Correo ya existe en la base de datos.'); 
+                }               
+            }
+            else{
+                return redirect()->back()->with('alert','Numero de Identificacion no valido usuario'); 
+            }
         }        
-        return redirect()->back()->with('alert','Usuario Creado con Exito');
     }
 }

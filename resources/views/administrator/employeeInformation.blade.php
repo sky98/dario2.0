@@ -90,9 +90,9 @@
 	<div class="form-group">
 		<label for="state">Estado : </label>
 		@if($employee->state == 1)
-			<input readonly type="state" class="form-control" id="state" name="state" value="Habilitado">
+			<input style="background-color: #3498DB" readonly type="state" class="form-control" id="state" name="state" value="Habilitado">
 		@else
-			<input readonly type="state" class="form-control" id="state" name="state" value="Deshabilitado">
+			<input style="background-color: #E74C3C" readonly type="state" class="form-control" id="state" name="state" value="Deshabilitado">
 		@endif
 	</div>
 	<div class="col-xs-12 col-md-offset-4">
@@ -115,11 +115,13 @@
 		if($('#checkBox').is(':checked')){
 			$.get("../changeState/"+ $("#user_id").val()+"/1",function(response){
 				$('#state').val("Habilitado");
+				$('#state').css({'background-color' : '#3498DB'});
 			});			
 		}
 		else{
 			$.get("../changeState/"+ $("#user_id").val()+"/0",function(response){
 				$('#state').val("Deshabilitado");
+				$('#state').css({'background-color' : '#E74C3C'});
 			});	
 		}
 	});

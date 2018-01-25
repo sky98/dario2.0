@@ -95,7 +95,7 @@
 			<br>
 			<div class="input-group" id="divDinamic">
 				<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
-            	<input type="email" class="form-control" placeholder="Correo" aria-describedby="basic-addon1" name="email" required value="ejemplo@ejemplo.com">
+            	<input type="email" class="form-control" placeholder="Correo" aria-describedby="basic-addon1" id="email" name="email" required value="ejemplo@ejemplo.com" placeholder="Correo">
 			</div>
 			<br>
 			<div class="input-group">
@@ -115,6 +115,7 @@
 			<div class="input-group col-xs-12">
          		<button type="submit" class="btn btn-success btn-block btn-lg">Registrar</button>
          	</div>
+         	<br>
 		</form>		
 	</div>
 @endsection
@@ -128,12 +129,14 @@
 		if($('#checkBox').is(':checked')){
 			$('#role').css({'background-color' : '#FACC2E'});
 			$('#role').val('Empleado');	
-			$('#divDinamic').show();	
+			$('#divDinamic').show();
+			$('#email').val('');
 		}
 		else{
 			$('#role').css({'background-color' : '#819FF7'});
 			$('#role').val('Cliente');	
 			$('#divDinamic').hide();
+			$('#email').val('correo@correo.com');
 		}
 	});
 </script>
