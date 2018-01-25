@@ -17,6 +17,7 @@
 
 Route::get('/','LoginController@login');
 Route::post('/','LoginController@validations');
+Route::get('sessionOut','LoginController@sessionOut');
 
 Route::prefix('administrator')->group(function(){
 
@@ -41,6 +42,11 @@ Route::prefix('administrator')->group(function(){
 	Route::get('updateName/{id}/{name}','AdministratorController@updateName');
 	Route::get('updateEmail/{id}/{email}','AdministratorController@updateEmail');
 	Route::post('updatePassword','AdministratorController@updatePassword')->name('updatePassword');
+
+	Route::get('statistics','AdministratorController@statistics')->name('statistics');
+	Route::get('movementsDay/{date}','AdministratorController@movementsDay');
+	Route::get('allLoansDay/{date}','AdministratorController@allLoansDay');
+	Route::get('allReceivablesDay/{date}','AdministratorController@allReceivablesDay');
 });
 
 Auth::routes();

@@ -72,8 +72,8 @@
 					<li @yield('home')><a href="{{ action('AdministratorController@main') }}">Principal</a></li>
 					<li @yield('register')><a href="{{ action('AdministratorController@register') }}">Registrar</a></li>
 					<li @yield('personal')><a href="{{ action('AdministratorController@personal') }}">Personal</a></li>
-					<li @yield('statistics')><a href="#">Estadisticas</a></li>
-					<li><a href="#">Salir</a></li>
+					<li @yield('statistics')><a href="{{ action('AdministratorController@statistics') }}">Estadisticas</a></li>
+					<li><a href="{{ action('LoginController@sessionOut') }}">Salir</a></li>
 					<!-- <li><a href="contact.html">Contact</a></li> -->
 				</ul>
 			</div>

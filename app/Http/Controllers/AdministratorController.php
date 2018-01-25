@@ -8,6 +8,7 @@ use App\models\movements;
 use App\models\customers;
 use App\models\debts;
 use Auth;
+use Carbon\Carbon;
 
 class AdministratorController extends Controller
 {
@@ -217,4 +218,32 @@ class AdministratorController extends Controller
             return redirect()->back()->with('alert','Su contraseña actual no coincide');
         }
     }
+
+    public function statistics(){
+        $dateNow = Carbon::now()->format('Y-m-d');
+        return view('administrator.statistics',compact('dateNow'));
+    }
+
+    public function movementsDay($date){
+        $raise = movements::whereDate('created_at',$date)->where('type',1)->sum('value');
+        $pay = movements::whereDate('created_at',$date)->where('type',0)->sum('value');
+        return view ('administrator.partials.movements' ,compact('raise','pay'));
+    }
+
+    public function allLoansDay($date){
+       $loans = Movements::whereDate('movements.created_at',$date)
+                            ->where('movements.type',0)
+                            ->join('customers','movements.customer_id','=','customers.id')
+                            ->select('customers.name','movements.*')->get();
+        return view('administrator.partials.allLoansDay',compact('loans'));
+    }
+
+    public function allReceivablesDay($date){
+       $receivables = Movements::whereDate('movements.created_at',$date)
+                            ->where('movements.type',1)
+                            ->join('customers','movements.customer_id','=','customers.id')
+                            ->select('customers.name','movements.*')->get();
+        return view('administrator.partials.allReceivablesDay',compact('receivables'));
+    }
+
 }
