@@ -70,7 +70,7 @@
 			<div class="fh5co-table-cell js-fullheight">
 				<ul>
 					<li @yield('home')><a href="{{ action('AdministratorController@main') }}">Principal</a></li>
-					<li @yield('newCustomer')><a href="#">Registrar</a></li>
+					<li @yield('register')><a href="{{ action('AdministratorController@register') }}">Registrar</a></li>
 					<li @yield('personal')><a href="#">Personal</a></li>
 					<li @yield('statistics')><a href="#">Estadisticas</a></li>
 					<li><a href="#">Salir</a></li>

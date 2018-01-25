@@ -29,6 +29,12 @@ Route::prefix('administrator')->group(function(){
 
 	Route::get('customers','AdministratorController@customers')->name('customers');
 	Route::get('customerDetails/{id}','AdministratorController@customerDetails')->name('customerDetails');
+	Route::post('collection','AdministratorController@collection')->name('collection');
+	Route::post('loans','AdministratorController@loans')->name('loans');
+	Route::get('balances/{id}','AdministratorController@balanceDetails');
+
+	Route::get('register','AdministratorController@register')->name('register');
+	Route::post('register','AdministratorController@add');
 });
 
 Auth::routes();

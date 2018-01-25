@@ -85,4 +85,70 @@ class AdministratorController extends Controller
         $movements = movements::where('customer_id',$id)->get();
         return view('administrator.customerDetails',compact('customer','debts','movements'));
     }
+
+    public function collection(Request $request){
+        $debts = Debts::where('customer_id',$request->input('customer_id'))->get()->first();
+        $debts->current_balance = $debts->current_balance - $request->input('value');
+        $debts->save();
+        $movements = Movements::create([
+            'type' => 1,
+            'value' => $request->input('value'),
+            'percentage' => 0,
+            'user_id' => $request->input('user_id'),
+            'customer_id' => $request->input('customer_id'),
+        ]);
+        return redirect()->action('AdministratorController@customerDetails',$request->input('customer_id'));
+    }
+
+    public function loans(Request $request){
+        if (debts::where('customer_id',$request->input('customer_id'))->get()->first() == null) {
+            $debts = debts::create([
+                'initial_balance' => $request->input('initial_balance'),
+                'current_balance' => $request->input('initial_balance'),
+                'customer_id' => $request->input('customer_id'),
+            ]);                      
+        }else{
+            $debts = debts::where('customer_id',$request->input('customer_id'))->get()->first();
+            $debts->current_balance = $debts->current_balance + $request->input('initial_balance');
+            $debts->save();
+        }
+        $movements = movements::create([
+            'type' => 0,
+            'value' => $request->input('initial_balance'),
+            'percentage' => $request->input('percentage'),
+            'user_id' => $request->input('user_id'),
+            'customer_id' => $request->input('customer_id'),
+        ]);
+        return redirect()->action('AdministratorController@customerDetails',$request->input('customer_id')); 
+    }
+
+    public function balanceDetails($id){
+        $movements = Movements::where('customer_id',$id)->where('type',0)->get();
+        return view('administrator.partials.balanceDetails',compact('movements'));
+    }
+
+    public function register(){
+        return view('administrator.register');
+    }
+
+    public function add(Request $request){
+        if($request->input('role') == 'Cliente'){
+            $customer = new customers();
+            $data = $request->all();
+            $customer->create($data);
+        }
+        else{
+            $password = bcrypt(substr($request->input('nit'),0,5).ucwords(substr($request->input('name'),0,1)));
+            $user = User::create([
+                'nit' => $request->input('nit'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'state' => 1,
+                'role' => 'e',
+                'password' => $password,
+                'token' => $request->input('token'),
+            ]);
+        }        
+        return redirect()->back()->with('alert','Usuario Creado con Exito');
+    }
 }
