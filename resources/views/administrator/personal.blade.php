@@ -38,7 +38,7 @@
                 	<h4 class="modal-title" id="myModalLabel">Cambiar Contraseña</h4>
               	</div>
               	<div class="modal-body">
-              		<form>
+              		<form method="POST" action="{{ URL::asset('administrator/updatePassword') }}">
 		                <div class='input-group col-xs-12'>
 		                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 		                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -67,10 +67,26 @@
 @section('script')
 	<script type="text/javascript">
 		$('#nit').change(function(){
-			$.get("updateNit/"+ {{ Auth::user()->id }} +"/"+ $(this).val() +"",function(response){
-				
-				//$.notify("Se ha actualizado el registro...","success");
+			nit = {{ Auth::user()->nit }};
+			$.get("updateNit/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
+				if(response == 1){
+					$.notify("Se ha actualizado el registro...","success");
+				}
+				else{
+					$.notify("Identificacion ya registrada","success");
+					$('#nit').val(""+nit);
+				}
 			});
+		});
+		$('#name').change(function(){
+			$.get("updateName/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
+				$.notify("Se ha actualizado el registro...","success");
+			});
+		});
+		$('#email').change(function(){
+			$.get("updateEmail/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
+				$.notify("Se ha actualizado el registro...","success");
+			});			
 		});
 	</script>
 @endsection

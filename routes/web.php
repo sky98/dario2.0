@@ -37,7 +37,10 @@ Route::prefix('administrator')->group(function(){
 	Route::post('register','AdministratorController@add');
 
 	Route::get('personal','AdministratorController@personal')->name('personal');
-	Route::get('updateNit/{id}/{nit}','AdministratorController@updateNit')->name('updateNit');
+	Route::get('updateNit/{id}/{nit}','AdministratorController@updateNit');
+	Route::get('updateName/{id}/{name}','AdministratorController@updateName');
+	Route::get('updateEmail/{id}/{email}','AdministratorController@updateEmail');
+	Route::post('updatePassword','AdministratorController@updatePassword')->name('updatePassword');
 });
 
 Auth::routes();

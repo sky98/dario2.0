@@ -7,6 +7,7 @@ use App\User;
 use App\models\movements;
 use App\models\customers;
 use App\models\debts;
+use Auth;
 
 class AdministratorController extends Controller
 {
@@ -173,14 +174,47 @@ class AdministratorController extends Controller
     }
 
     public function updateNit($id,$nit){
+        $control = 0;
         if(User::where('nit',$nit)->get()->first() == null){
             $user = User::find($id);
             $user->nit = $nit;
             $user->save();
-            return true;
+            $control = 1;
+        }
+        return $control;
+    }
+
+    public function updateName($id,$name){
+        $user = User::find($id);
+        $user->name = $name;
+        $user->save();
+        return 1;
+    }
+
+    public function updateEmail($user_id,$email){
+        $user = User::find($user_id);
+        $user->email = $email;
+        $user->save();
+        return 1;
+    }
+
+    public function updatePassword(Request $request){
+        $credentials = ['id'=>$request->input('user_id'),
+                        'password'=>$request->input('oldPassword')
+                        ];
+        if(Auth::attempt($credentials)){
+            if($request->input('newPassword') == $request->input('newPassword2')){
+                $user = Auth::user();
+                $user->password = bcrypt($request->input('newPassword'));
+                $user->save();
+                return redirect()->back()->with('alert','Se ha Modificado Su contraseña...');
+            }
+            else{
+                return redirect()->back()->with('alert','La nueva Contraseña no coincide...');
+            }
         }
         else{
-            return false;
+            return redirect()->back()->with('alert','Su contraseña actual no coincide');
         }
     }
 }
