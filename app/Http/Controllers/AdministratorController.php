@@ -167,4 +167,20 @@ class AdministratorController extends Controller
             }
         }        
     }
+
+    public function personal(){
+        return view('administrator.personal');
+    }
+
+    public function updateNit($id,$nit){
+        if(User::where('nit',$nit)->get()->first() == null){
+            $user = User::find($id);
+            $user->nit = $nit;
+            $user->save();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

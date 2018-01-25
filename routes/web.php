@@ -35,6 +35,9 @@ Route::prefix('administrator')->group(function(){
 
 	Route::get('register','AdministratorController@register')->name('register');
 	Route::post('register','AdministratorController@add');
+
+	Route::get('personal','AdministratorController@personal')->name('personal');
+	Route::get('updateNit/{id}/{nit}','AdministratorController@updateNit')->name('updateNit');
 });
 
 Auth::routes();
