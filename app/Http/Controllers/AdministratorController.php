@@ -142,7 +142,7 @@ class AdministratorController extends Controller
                 return redirect()->back()->with('alert','Usuario Creado con Exito');
             }
             else{
-              return redirect()->back()->with('alert','Numero de Identificacion no valido cliente');  
+              return redirect()->back()->with('alert','Numero de Identificacion no valido');  
             }
         }
         else{
@@ -165,7 +165,7 @@ class AdministratorController extends Controller
                 }               
             }
             else{
-                return redirect()->back()->with('alert','Numero de Identificacion no valido usuario'); 
+                return redirect()->back()->with('alert','Numero de Identificacion no valido'); 
             }
         }        
     }

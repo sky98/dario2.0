@@ -49,6 +49,22 @@ Route::prefix('administrator')->group(function(){
 	Route::get('allReceivablesDay/{date}','AdministratorController@allReceivablesDay');
 });
 
+Route::prefix('employee')->group(function(){
+	Route::get('/','EmployeeController@main')->name('panel');
+	Route::get('customer/{id}','EmployeeController@customer')->name('customer');
+	Route::get('balances/{id}','EmployeeController@balances');
+	Route::post('pay','EmployeeController@pay')->name('pay');
+	Route::post('lend','EmployeeController@lend')->name('lend');
+	Route::get('newCustomer','EmployeeController@newCustomer')->name('newCustomer');
+	Route::post('newCustomer','EmployeeController@addCustomer');
+
+	Route::get('personal','EmployeeController@personal')->name('personal');
+	Route::get('updateNit/{id}/{nit}','EmployeeController@updateNit');
+	Route::get('updateName/{id}/{name}','EmployeeController@updateName');
+	Route::get('updateEmail/{id}/{email}','EmployeeController@updateEmail');
+	Route::post('updatePassword','EmployeeController@updatePassword')->name('updatePassword');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

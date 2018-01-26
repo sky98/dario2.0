@@ -16,7 +16,7 @@ class LoginController extends Controller
 			switch (Auth::user()->role) {
 				case 'a':return redirect()->action('AdministratorController@main');
 					break;
-				case 'e':dd("EmpleadoLogeado");
+				case 'e':return redirect()->action('EmployeeController@main');
 					break;
 				case 's':dd("SupervisorLogeado");
 					break;
@@ -36,7 +36,7 @@ class LoginController extends Controller
         	switch (Auth::user()->role) {
         		case 'a':return redirect()->action('AdministratorController@main');
         			break;
-        		case 'e':dd("Empleado");
+        		case 'e':return redirect()->action('EmployeeController@main');
         			break;
         		case 's':dd("Supervisor");
         			break;
