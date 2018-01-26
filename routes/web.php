@@ -63,6 +63,11 @@ Route::prefix('employee')->group(function(){
 	Route::get('updateName/{id}/{name}','EmployeeController@updateName');
 	Route::get('updateEmail/{id}/{email}','EmployeeController@updateEmail');
 	Route::post('updatePassword','EmployeeController@updatePassword')->name('updatePassword');
+
+	Route::get('statistics','EmployeeController@statistics')->name('statistics');
+	Route::get('movementsDay/{id}/{date}','EmployeeController@movementsDay');
+	Route::get('allLoansDay/{id}/{date}','EmployeeController@allLoansDay');
+	Route::get('allReceivablesDay/{id}/{date}','EmployeeController@allReceivablesDay');
 });
 
 Auth::routes();

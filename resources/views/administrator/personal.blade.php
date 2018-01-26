@@ -85,7 +85,13 @@
 		});
 		$('#email').change(function(){
 			$.get("updateEmail/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
-				$.notify("Se ha actualizado el registro...","success");
+				if(response == 1){
+					$.notify("Se ha actualizado el registro...","success");
+				}
+				else{
+					$.notify("Correo ya registrado en la Base de datos","success");
+					$('#email').val('{{ Auth::user()->email }}');
+				}
 			});			
 		});
 	</script>

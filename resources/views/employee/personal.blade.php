@@ -67,14 +67,13 @@
 @section('script')
 	<script type="text/javascript">
 		$('#nit').change(function(){
-			nit = {{ Auth::user()->nit }};
 			$.get("updateNit/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
 				if(response == 1){
 					$.notify("Se ha actualizado el registro...","success");
 				}
 				else{
 					$.notify("Identificacion ya registrada","success");
-					$('#nit').val(""+nit);
+					$('#nit').val('{{ Auth::user()->nit }}');
 				}
 			});
 		});
@@ -85,7 +84,13 @@
 		});
 		$('#email').change(function(){
 			$.get("updateEmail/"+ $("#user_id").val() +"/"+ $(this).val() +"",function(response,valor){
-				$.notify("Se ha actualizado el registro...","success");
+				if(response == 1){
+					$.notify("Se ha actualizado el registro...","success");
+				}
+				else{
+					$.notify("Correo ya registrado en la Base de datos","success");
+					$('#email').val('{{ Auth::user()->email }}');
+				}
 			});			
 		});
 	</script>

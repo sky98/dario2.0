@@ -192,11 +192,15 @@ class AdministratorController extends Controller
         return 1;
     }
 
-    public function updateEmail($user_id,$email){
-        $user = User::find($user_id);
-        $user->email = $email;
-        $user->save();
-        return 1;
+    public function updateEmail($id,$email){
+        $control = 0;
+        if(User::where('email',$email)->get()->first() == null){
+            $user = User::find($id);
+            $user->email = $email;
+            $user->save();
+            $control = 1;
+        }        
+        return $control;
     }
 
     public function updatePassword(Request $request){

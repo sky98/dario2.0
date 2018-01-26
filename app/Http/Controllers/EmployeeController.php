@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\models\customers;
 use App\models\debts;
 use App\models\movements;
+use App\User;
+use Auth;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -94,17 +97,20 @@ class EmployeeController extends Controller
     }
 
     public function updateName($id,$name){
-        $user = User::find($id);
-        $user->name = $name;
-        $user->save();
-        return 1;
+    	$user = User::find($id);
+	    $user->name = $name;
+	    $user->save();	        
     }
 
-    public function updateEmail($user_id,$email){
-        $user = User::find($user_id);
-        $user->email = $email;
-        $user->save();
-        return 1;
+    public function updateEmail($id,$email){
+    	$control = 0;
+    	if(User::where('email',$email)->get()->first() == null){
+	        $user = User::find($id);
+	        $user->email = $email;
+	        $user->save();
+	        $control = 1;
+    	}        
+        return $control;
     }
 
     public function updatePassword(Request $request){
@@ -125,6 +131,41 @@ class EmployeeController extends Controller
         else{
             return redirect()->back()->with('alert','Su contraseña actual no coincide');
         }
+    }
+
+    public function statistics(){
+        $dateNow = Carbon::now()->format('Y-m-d');
+        return view('employee.statistics',compact('dateNow'));
+    }
+
+    public function movementsDay($id,$date){
+        $raise = movements::whereDate('created_at',$date)
+        					->where('user_id',$id)
+        					->where('type',1)
+        					->sum('value');
+        $pay = movements::whereDate('created_at',$date)
+        				->where('user_id',$id)
+        				->where('type',0)
+        				->sum('value');
+        return view ('employee.partials.movements' ,compact('raise','pay'));
+    }
+
+    public function allLoansDay($id,$date){
+       $loans = movements::whereDate('movements.created_at',$date)
+                            ->where('movements.user_id','=',$id)
+                            ->where('movements.type',0)
+                            ->join('customers','movements.customer_id','=','customers.id')
+                            ->select('customers.name','movements.*')->get();
+        return view('employee.partials.allLoansDay',compact('loans'));
+    }
+
+    public function allReceivablesDay($id,$date){
+       $receivables = movements::whereDate('movements.created_at',$date)
+                            ->where('movements.user_id','=',$id)
+                            ->where('movements.type',1)
+                            ->join('customers','movements.customer_id','=','customers.id')
+                            ->select('customers.name','movements.*')->get();
+        return view('employee.partials.allReceivablesDay',compact('receivables'));
     }
 
 }
