@@ -75,6 +75,25 @@ Route::prefix('employee')->group(function(){
 	Route::post('search','EmployeeController@search')->name('search');
 });
 
+Route::prefix('supervisor')->group(function(){
+	Route::get('/','SupervisorController@main')->name('main');
+
+	Route::get('user/{id}','SupervisorController@user')->name('user');
+	Route::get('changeState/{id}/{state}','SupervisorController@changeState');
+
+	Route::get('register','SupervisorController@register')->name('register');
+	Route::post('newUser','SupervisorController@newUser')->name('newUser');
+
+	Route::get('personal','SupervisorController@personal')->name('personal');
+	Route::get('updateNit/{id}/{nit}','SupervisorController@updateNit');
+	Route::get('updateName/{id}/{name}','SupervisorController@updateName');
+	Route::get('updateEmail/{id}/{email}','SupervisorController@updateEmail');
+	Route::post('updatePassword','SupervisorController@updatePassword')->name('updatePassword');
+
+	Route::post('search','SupervisorController@search')->name('search');
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

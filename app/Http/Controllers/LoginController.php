@@ -18,7 +18,7 @@ class LoginController extends Controller
 					break;
 				case 'e':return redirect()->action('EmployeeController@main');
 					break;
-				case 's':dd("SupervisorLogeado");
+				case 's':return redirect()->action('SupervisorController@main');
 					break;
 			}
 		}
@@ -38,7 +38,7 @@ class LoginController extends Controller
         			break;
         		case 'e':return redirect()->action('EmployeeController@main');
         			break;
-        		case 's':dd("Supervisor");
+        		case 's':return redirect()->action('SupervisorController@main');
         			break;
         	}
         }
