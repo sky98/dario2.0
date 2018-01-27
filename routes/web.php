@@ -47,6 +47,9 @@ Route::prefix('administrator')->group(function(){
 	Route::get('movementsDay/{date}','AdministratorController@movementsDay');
 	Route::get('allLoansDay/{date}','AdministratorController@allLoansDay');
 	Route::get('allReceivablesDay/{date}','AdministratorController@allReceivablesDay');
+
+	Route::post('searchCustomer','AdministratorController@searchCustomer')->name('searchCustomer');
+	Route::post('searchUser','AdministratorController@searchUser')->name('searchUser');
 });
 
 Route::prefix('employee')->group(function(){
@@ -68,6 +71,8 @@ Route::prefix('employee')->group(function(){
 	Route::get('movementsDay/{id}/{date}','EmployeeController@movementsDay');
 	Route::get('allLoansDay/{id}/{date}','EmployeeController@allLoansDay');
 	Route::get('allReceivablesDay/{id}/{date}','EmployeeController@allReceivablesDay');
+
+	Route::post('search','EmployeeController@search')->name('search');
 });
 
 Auth::routes();

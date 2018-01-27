@@ -250,4 +250,26 @@ class AdministratorController extends Controller
         return view('administrator.partials.allReceivablesDay',compact('receivables'));
     }
 
+    public function searchCustomer(Request $request){
+        $customer = customers::where('nit',$request->input('customer_id'))
+                                ->get()->first();
+        if($customer == null){
+            return redirect()->action('AdministratorController@customers');
+        }
+        else{
+            return view('administrator.searchCustomer',compact('customer'));
+        }
+    }
+
+    public function searchUser(Request $request){
+        $customer = User::where('nit',$request->input('customer_id'))
+                                ->get()->first();
+        if($customer == null){
+            return redirect()->action('AdministratorController@employees');
+        }
+        else{
+            return view('administrator.searchUser',compact('customer'));
+        }
+    }
+
 }

@@ -168,4 +168,15 @@ class EmployeeController extends Controller
         return view('employee.partials.allReceivablesDay',compact('receivables'));
     }
 
+    public function search(Request $request){
+        $customer = customers::where('nit',$request->input('customer_id'))
+                                ->get()->first();
+        if($customer == null){
+            return redirect()->action('EmployeeController@main');
+        }
+        else{
+            return view('employee.search',compact('customer'));
+        }
+    }
+
 }
