@@ -9,12 +9,12 @@ use Auth;
 class SupervisorController extends Controller
 {
     public function main(){
-    	$users = User::simplePaginate(5);
+    	$users = User::orderBy('name','ASC')->simplePaginate(5);
     	return view('supervisor.main',compact('users'));
     }
 
     public function search(Request $request){
-        $user = User::where('nit',$request->input('customer_id'))->get()->first();
+        $user = User::where('nit',$request->input('user_id'))->get()->first();
         if($user == null){
             return redirect()->action('SupervisorController@main');
         }

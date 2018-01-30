@@ -1,4 +1,4 @@
-@extends('layouts.employee')
+@extends('layouts.supervisor')
 @section('title','Main')
 
 @section('home')

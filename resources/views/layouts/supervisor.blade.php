@@ -83,7 +83,7 @@
 		<header>
 			<div class="container">
 				<div class="fh5co-navbar-brand">
-					<h1 class="text-center"><a class="fh5co-logo" href="{{ action('EmployeeController@main') }}"><i class="icon-camera2"></i></a></h1>
+					<h1 class="text-center"><a class="fh5co-logo" href="{{ action('SupervisorController@main') }}"><i class="icon-camera2"></i></a></h1>
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 				</div>
 			</div>

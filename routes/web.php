@@ -19,7 +19,7 @@ Route::get('/','LoginController@login');
 Route::post('/','LoginController@validations');
 Route::get('sessionOut','LoginController@sessionOut');
 
-Route::prefix('administrator')->group(function(){
+Route::prefix('administrator')->middleware('administrator')->group(function(){
 
 	Route::get('/','AdministratorController@main')->name('Panel');
 	Route::get('employees','AdministratorController@employees')->name('employees');
@@ -52,7 +52,7 @@ Route::prefix('administrator')->group(function(){
 	Route::post('searchUser','AdministratorController@searchUser')->name('searchUser');
 });
 
-Route::prefix('employee')->group(function(){
+Route::prefix('employee')->middleware('employee')->group(function(){
 	Route::get('/','EmployeeController@main')->name('panel');
 	Route::get('customer/{id}','EmployeeController@customer')->name('customer');
 	Route::get('balances/{id}','EmployeeController@balances');
@@ -75,7 +75,7 @@ Route::prefix('employee')->group(function(){
 	Route::post('search','EmployeeController@search')->name('search');
 });
 
-Route::prefix('supervisor')->group(function(){
+Route::prefix('supervisor')->middleware('supervisor')->group(function(){
 	Route::get('/','SupervisorController@main')->name('main');
 
 	Route::get('user/{id}','SupervisorController@user')->name('user');
