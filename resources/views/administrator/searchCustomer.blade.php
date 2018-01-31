@@ -17,7 +17,7 @@
       </form>
     </div>
     <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <button type="button" class="btn btn-success btn-block" onclick="location.href='{{ route('customer',$customer->id) }}'">
+      <button type="button" class="btn btn-success btn-block" onclick="location.href='{{ route('customerDetails',$customer->id) }}'">
         {{ $customer->name }}
       </button>
       <br><br>

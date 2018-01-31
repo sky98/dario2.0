@@ -11,10 +11,6 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
 Route::get('/','LoginController@login');
 Route::post('/','LoginController@validations');
 Route::get('sessionOut','LoginController@sessionOut');
