@@ -222,14 +222,14 @@
       valu = valu.replace('.','');
       var initial = valu*(1+($('#percentage').val()/100));
       $('#value').val(valu);
-      $('#initial_balance').val(initial);
-      $('#current_balance').val(initial);
+      $('#initial_balance').val(Math.ceil(initial));
+      $('#current_balance').val(Math.ceil(initial));
     });
     $('#percentage').bind('keyup change',function(){
       if ($('#value').val() > 0) {
         var initial = $('#value').val()*(1+($('#percentage').val()/100));
-        $('#initial_balance').val(initial);
-        $('#current_balance').val(initial);
+        $('#initial_balance').val(Math.ceil(initial));
+        $('#current_balance').val(Math.ceil(initial));
       }
     });
     $('#balance_details').click(function(){
