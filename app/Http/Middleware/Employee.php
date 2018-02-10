@@ -16,9 +16,14 @@ class Employee
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->role != 'e')
-            return redirect()->action('LoginController@login');;
+        if(Auth::check()){
+            if(Auth()->user()->role == 'e')
+                return $next($request);
 
-        return $next($request);
+            return redirect()->action('LoginController@login');
+        }
+        else{
+            return redirect()->action('LoginController@login');
+        }
     }
 }
