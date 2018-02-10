@@ -21,9 +21,7 @@ class LoginController extends Controller
     	}
     	if( password_verify($request->password , $user->password) ){
     		return response(
-    			[
-    				'token' => $user->api_token
-    			],Response::HTTP_OK
+    			$user,Response::HTTP_OK
     		);
     	}
     	return response([

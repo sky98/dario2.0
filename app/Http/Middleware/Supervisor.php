@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class Supervisor
 {
@@ -15,7 +16,7 @@ class Supervisor
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->role != 's')
+        if(Auth()->user()->role != 's')
             return redirect()->action('LoginController@login');;
 
         return $next($request);

@@ -20,11 +20,12 @@ use Illuminate\Http\Request;
 Route::post('login','Api\LoginController@login');
 
 
-Route::prefix('sup')->middleware('auth:api')->group(function() {
+Route::group([ 'prefix' => 'sup','middleware' => 'auth:api' ],function() {
 	Route::get('/',function(){
-		return "Admin Get";
+		return "Sup";
 	});
 });
+
 
 Route::prefix('adm')->middleware('auth:api')->group(function() {
 	Route::get('customerList',function(){
@@ -33,5 +34,11 @@ Route::prefix('adm')->middleware('auth:api')->group(function() {
 });
 
 Route::prefix('emp')->middleware('auth:api')->group(function() {
+
 	Route::get('customerList','Api\EmpController@customerList');
+	Route::get('customerDetails/{id}','Api\EmpController@customerDetails');
+	Route::get('customerMovements/{id}','Api\EmpController@customerMovements');
+
+	Route::post('lend','Api\EmpController@lend');
+
 });
