@@ -46,7 +46,7 @@ class EmployeeController extends Controller
     public function lend(Request $request){
         if (debts::where('customer_id',$request->input('customer_id'))->get()->first() == null) {
             $debts = Debts::create([
-                'initial_balance' => $request->input('initial_balance'),
+                'initial_balance' => $request->input('value'),
                 'current_balance' => $request->input('initial_balance'),
                 'customer_id' => $request->input('customer_id'),
             ]);                      
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
         }
         $movements = movements::create([
             'type' => 0,
-            'value' => $request->input('initial_balance'),
+            'value' => $request->input('value'),
             'percentage' => $request->input('percentage'),
             'user_id' => $request->input('user_id'),
             'customer_id' => $request->input('customer_id'),

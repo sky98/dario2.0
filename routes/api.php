@@ -35,10 +35,10 @@ Route::prefix('adm')->middleware('auth:api')->group(function() {
 
 Route::prefix('emp')->middleware('auth:api')->group(function() {
 
-	Route::get('customerList','Api\EmpController@customerList');
-	Route::get('customerDetails/{id}','Api\EmpController@customerDetails');
-	Route::get('customerMovements/{id}','Api\EmpController@customerMovements');
+	Route::get('customerList','Api\CustomerController@all');
+	Route::get('customerDetails/{id}','Api\CustomerController@customerDetails');
+	Route::get('customerMovements/{id}','Api\CustomerController@customerMovements');
 
-	Route::post('lend','Api\EmpController@lend');
+	Route::post('lend','Api\CustomerController@payment');
 
 });

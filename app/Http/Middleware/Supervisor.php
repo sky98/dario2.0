@@ -25,10 +25,5 @@ class Supervisor
         else{
             return redirect()->action('LoginController@login');
         }
-
-        /*if(Auth()::user()->role != 's')
-            return redirect()->action('LoginController@login');
-
-        return $next($request);*/
     }
 }
