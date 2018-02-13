@@ -39,6 +39,9 @@ Route::prefix('emp')->middleware('auth:api')->group(function() {
 	Route::get('customerDetails/{id}','Api\CustomerController@customerDetails');
 	Route::get('customerMovements/{id}','Api\CustomerController@customerMovements');
 
-	Route::post('lend','Api\CustomerController@payment');
+	Route::post('lend','Api\CustomerController@lend');
+	Route::post('pay','Api\CustomerController@pay');
+});
 
+Route::prefix('v1')->middleware('auth:api')->group(function(){
 });
