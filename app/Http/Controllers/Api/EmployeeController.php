@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\models\debts;
 use App\models\movements;
@@ -19,14 +20,14 @@ class EmployeeController extends Controller
             return response()->json([],201);
         }
         else{
-            return response()->json([}
+            return response()->json([
             	'error' => 'Invalid identification number'
             ],Response::HTTP_BAD_REQUEST);  
         }
 	}
 
 	public function all(){
-    	$employees = User::all();
+    	$employees = User::where('role','e')->get();
     	if(!$employees){
     		return response(
     			[
@@ -61,58 +62,125 @@ class EmployeeController extends Controller
     	}
     }
 
-    public function changeState($id,$state){
-    	$employee = User::find($id);
-    	if($state == 1){
-    		$employee->state = 1 ;
-    	}
-    	else{
-    		$employee->state = 0 ;
-    	}
-    	$employee->save();
-    	return response()->json([],200);
-    }
-
-    public function updateName($id,$name){
-        $user = User::find($id);
-        $user->name = $name;
-        $user->save();
-        return response()->json([],200);
-    }
-
-    public function updateEmail($id,$email){
-        if(User::where('email',$email)->get()->first() == null){
-            $user = User::find($id);
-            $user->email = $email;
-            $user->save();
-            return response()->json([],200);
-        }  
-        return response(
+    public function changeState(Request $request){
+    	$employee = User::find($request->input('id'));
+    	if(!$employee){
+    		return response(
     			[
-    				'error' => 'Mail in use'
-    			],
-    			Response::HTTP_BAD_REQUEST
-    		);      
-    }
-
-    public function updatePassword(Request $request){
-        $credentials = ['id'=>$request->input('user_id'),
-                        'password'=>$request->input('password1')
-                        ];
-        if($request->input('password1') == $request->input('password2')){
-                $user = Auth::user();
-                $user->password = bcrypt($request->input('password1'));
-                $user->save();
-               return response()->json([],200);
-         }
-        else{
-            return response(
-    			[
-    				'error' => 'password do not match'
+    				'error' => 'No records'
     			],
     			Response::HTTP_BAD_REQUEST
     		);
-        }
-        
+    	}
+    	else{
+    		if($request->input('id') == 1){
+	    		$employee->state = 1 ;
+	    	}
+	    	else{
+	    		$employee->state = 0 ;
+	    	}
+	    	$employee->save();
+	    	return response()->json([],200);	
+    	}    	
+    }
+
+    public function updateName(Request $request){
+    	try{    		
+	        $employee = User::find($request->input('id'));
+	        if(!$employee){
+	    		return response(
+	    			[
+	    				'error' => 'No records'
+	    			],
+	    			Response::HTTP_BAD_REQUEST
+	    		);
+	    	}
+	    	else{
+	    		$employee->name = $request->input('name');
+	        	$employee->save();
+	    		return response()->json([],200);
+	    	}	 
+    	}
+    	catch(Exception $e){
+    		return response()->json([
+    			'error' => 'Error trying to update'
+    		],500);
+    	}
+    }
+
+    public function updateEmail(Request $request){
+    	try {
+            $employee = User::find($request->input('id')); 
+            if(!$employee){
+	    		return response(
+	    			[
+	    				'error' => 'No records'
+	    			],
+	    			Response::HTTP_BAD_REQUEST
+	    		);
+	    	}
+	    	else{
+	    		$employee->email = $request->input('email');
+	        	$employee->save();
+	    		return response()->json([],200);
+	    	}	
+        } 
+        catch (Exception $e) {
+            return response()->json([
+    			'error' => 'Error trying to update'
+    		],500); 	
+        }      
+    }
+
+    public function updatePassword(Request $request){
+
+    	try {
+    		$employee = User::find($request->input('id'));
+    		if(!$employee){
+	    		return response(
+	    			[
+	    				'error' => 'No records'
+	    			],
+	    			Response::HTTP_BAD_REQUEST
+	    		);
+	    	}
+	    	else{
+	    		if($request->input('password1') == $request->input('password2')){
+	                $employee->password = bcrypt($request->input('password1'));
+	                $employee->save();
+	               return response()->json([],200);
+	         }
+	        else{
+	            return response(
+	    			[
+	    				'error' => 'password do not match'
+	    			],
+	    			Response::HTTP_BAD_REQUEST
+	    		);
+	        }
+	    	}
+    	} 
+    	catch (Exception $e) {
+    		return response()->json([
+    			'error' => 'Error trying to update'
+    		],500);
+    	}        
+    }
+
+    public function search($id){
+    	$employee = User::find($id);
+    	if(!$employee){
+    		return response(
+    			[
+    				'error' => 'No records'
+    			],
+    			Response::HTTP_BAD_REQUEST
+    		);
+    	}
+    	else{
+    		return response(
+    			$employee,Response::HTTP_OK
+    		);
+    	}
     }
 }

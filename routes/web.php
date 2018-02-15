@@ -89,7 +89,6 @@ Route::prefix('supervisor')->middleware('supervisor')->group(function(){
 	Route::post('search','SupervisorController@search')->name('search');
 });
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

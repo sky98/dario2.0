@@ -44,4 +44,21 @@ Route::prefix('emp')->middleware('auth:api')->group(function() {
 });
 
 Route::prefix('v1')->middleware('auth:api')->group(function(){
+
+	Route::post('newCustomer','Api\CustomerController@new');
+	Route::get('allCustomer','Api\CustomerController@all');
+	Route::get('customerDetails/{id}','Api\CustomerController@customerDetails');
+	Route::get('customerMovements/{id}','Api\CustomerController@customerMovements');
+	Route::post('lend','Api\CustomerController@lend');
+	Route::post('pay','Api\CustomerController@pay');
+	Route::get('searchCustomer/{id}','Api\CustomerController@search');
+
+	Route::get('newEmployee','Api\EmployeeController@new');
+	Route::get('allEmployee','Api\EmployeeController@all');
+	Route::get('employeeDetails/{id}','Api\EmployeeController@employeeDetails');
+	Route::post('changeState','Api\EmployeeController@changeState');
+	Route::post('updateName','Api\EmployeeController@updateName');
+	Route::post('updateEmail','Api\EmployeeController@updateEmail');
+	Route::post('updatePassword','Api\EmployeeController@updatePassword');
+	Route::get('searchEmployee/{id}','Api\EmployeeController@search');
 });
