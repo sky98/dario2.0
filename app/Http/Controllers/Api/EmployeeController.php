@@ -12,7 +12,7 @@ use App\models\customers;
 
 class EmployeeController extends Controller
 {
-    public function new(){
+    public function add(){
 		if (User::where('nit',$request->input('nit'))->get()->first() == null) {
             $user = new User();
             $data = $request->all();
@@ -73,14 +73,16 @@ class EmployeeController extends Controller
     		);
     	}
     	else{
-    		if($request->input('id') == 1){
+    		if($request->input('state') == 1){
 	    		$employee->state = 1 ;
 	    	}
 	    	else{
 	    		$employee->state = 0 ;
 	    	}
 	    	$employee->save();
-	    	return response()->json([],200);	
+	    	return response()->json([
+	    		'message' => 'update ok'
+	    	],200);	
     	}    	
     }
 
@@ -98,7 +100,9 @@ class EmployeeController extends Controller
 	    	else{
 	    		$employee->name = $request->input('name');
 	        	$employee->save();
-	    		return response()->json([],200);
+	    		return response()->json([
+	    			'message' => 'update ok'
+	    		],200);
 	    	}	 
     	}
     	catch(Exception $e){
@@ -122,7 +126,9 @@ class EmployeeController extends Controller
 	    	else{
 	    		$employee->email = $request->input('email');
 	        	$employee->save();
-	    		return response()->json([],200);
+	    		return response()->json([
+	    			'message' => 'update ok'
+	    		],200);
 	    	}	
         } 
         catch (Exception $e) {
@@ -148,11 +154,12 @@ class EmployeeController extends Controller
 	    		if($request->input('password1') == $request->input('password2')){
 	                $employee->password = bcrypt($request->input('password1'));
 	                $employee->save();
-	               return response()->json([],200);
+	               	return response()->json([
+	               		'message' => 'update ok'
+	               	],200);
 	         }
 	        else{
-	            return response(
-	    			[
+	            return response([
 	    				'error' => 'password do not match'
 	    			],
 	    			Response::HTTP_BAD_REQUEST

@@ -53,7 +53,7 @@ Route::prefix('v1')->middleware('auth:api')->group(function(){
 	Route::post('pay','Api\CustomerController@pay');
 	Route::get('searchCustomer/{id}','Api\CustomerController@search');
 
-	Route::get('newEmployee','Api\EmployeeController@new');
+	Route::get('newEmployee','Api\EmployeeController@add');
 	Route::get('allEmployee','Api\EmployeeController@all');
 	Route::get('employeeDetails/{id}','Api\EmployeeController@employeeDetails');
 	Route::post('changeState','Api\EmployeeController@changeState');
